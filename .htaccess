@@ -1,0 +1,58 @@
+# -----------------------
+# Browser Caching
+# -----------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpg "access plus 6 months"
+  ExpiresByType image/jpeg "access plus 6 months"
+  ExpiresByType image/gif "access plus 6 months"
+  ExpiresByType image/png "access plus 6 months"
+  ExpiresByType image/webp "access plus 6 months"
+
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+
+  ExpiresByType text/html "access plus 1 hour"
+  ExpiresByType application/font-woff2 "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+
+  ExpiresDefault "access plus 1 day"
+</IfModule>
+
+# -----------------------
+# GZIP Compression
+# -----------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain text/html text/xml
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE font/woff font/woff2
+</IfModule>
+
+# -----------------------
+# Keep-Alive
+# -----------------------
+<IfModule mod_headers.c>
+  Header set Connection keep-alive
+</IfModule>
+
+# -----------------------
+# ETags
+# -----------------------
+FileETag MTime Size
+
+# -----------------------
+# Disable Directory Listing (Optional)
+# -----------------------
+Options -Indexes
+
+# -----------------------
+# Leverage Caching Headers (Optional)
+# -----------------------
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|jpg|jpeg|png|gif|woff|woff2|webp)$">
+    Header set Cache-Control "max-age=31536000, public"
+  </FilesMatch>
+</IfModule>
